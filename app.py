@@ -14,9 +14,8 @@ st.set_page_config(page_title="Airbnb Data Visualization",
 with st.sidebar:
     selected = option_menu(
                 menu_title="Menu", 
-                options=["Home","---", "Overview","---", "Explore"],
-                icons=["house", "","clipboard-data","", "compass"],
-                #menu_icon="person_vcard",
+                options=["Home", "Overview","Explore"],
+                icons=["house","clipboard-data", "compass"],
                 default_index=0,
                 styles={"nav-link": {"--hover-color": "#00A699"},
                                    "nav-link-selected": {"background-color": "#FF5A5F"}}
@@ -39,8 +38,6 @@ st.markdown(col2.title, unsafe_allow_html=True)
 
 # HOME PAGE
 if selected == "Home":
-    # Title Image
-
     
     st.markdown("__<p> Analyze Airbnb data using MongoDB Atlas, perform data cleaning and preparation, "
         "develop interactive visualizations, and create dynamic plots to gain insights into pricing variations, "
@@ -58,25 +55,19 @@ if selected == "Overview":
 
 
     if selected_tab == "Raw Data":
-        #     # RAW DATA
-        if st.button("Click to view raw data"):
-            st.write(col.find_one())
-        if st.button("Click to view Dataframe"):
+    
+        if st.button("Click to view raw Data"):
             st.write(df)
 
     if selected_tab == "Insights":
-        # INSIGHTS TAB
-        # if st.button("click to view data insights"):
-        # GETTING USER INPUTS
-        country = st.sidebar.multiselect('Select a Country', sorted(df.Country.unique()), sorted(df.Country.unique()))
-        prop = st.sidebar.multiselect('Select Property_type', sorted(df.Property_type.unique()),sorted(df.Property_type.unique()))
-        room = st.sidebar.multiselect('Select Room_type', sorted(df.Room_type.unique()), sorted(df.Room_type.unique()))
+
+        country = st.sidebar.multiselect('Select a Country', sorted(df.Country.unique()))
+        prop = st.sidebar.multiselect('Select Property_type', sorted(df.Property_type.unique()))
+        room = st.sidebar.multiselect('Select Room_type', sorted(df.Room_type.unique()))
         price = st.slider('Select Price', df.Price.min(), df.Price.max(), (df.Price.min(), df.Price.max()))
 
-        # CONVERTING THE USER INPUT INTO QUERY
         query = f'Country in {country} & Room_type in {room} & Property_type in {prop} & Price >= {price[0]} & Price <= {price[1]}'
 
-        # CREATING COLUMNS
         col1, col2 = st.columns(2, gap='medium')
 
         with col1:
@@ -136,20 +127,16 @@ if selected == "Explore":
     a = '<p style="font-family:sans serif; color:#00A699; font-size: 30px;">Explore more about the Airbnb data...</p>'
     st.markdown(a, unsafe_allow_html=True)
 
-    # GETTING USER INPUTS
-    country = st.sidebar.multiselect('Select a Country', sorted(df.Country.unique()), sorted(df.Country.unique()))
-    prop = st.sidebar.multiselect('Select Property_type', sorted(df.Property_type.unique()),sorted(df.Property_type.unique()))
-    room = st.sidebar.multiselect('Select Room_type', sorted(df.Room_type.unique()), sorted(df.Room_type.unique()))
+    country = st.sidebar.multiselect('Select a Country', sorted(df.Country.unique()))
+    prop = st.sidebar.multiselect('Select Property_type', sorted(df.Property_type.unique()))
+    room = st.sidebar.multiselect('Select Room_type', sorted(df.Room_type.unique()))
     price = st.slider('Select Price', df.Price.min(), df.Price.max(), (df.Price.min(), df.Price.max()))
 
-    # CONVERTING THE USER INPUT INTO QUERY
     query = f'Country in {country} & Room_type in {room} & Property_type in {prop} & Price >= {price[0]} & Price <= {price[1]}'
 
-    # HEADING 1
-    
     b = '<p style="font-family:sans serif; color:#00A699; font-size: 25px;"><em><b>Price Analysis</b></em></p>'
     st.markdown(b, unsafe_allow_html=True)
-    # CREATING COLUMNS
+
     col1, col2 = st.columns(2, gap='medium')
 
     with col1:
@@ -163,7 +150,6 @@ if selected == "Explore":
                      )
         st.plotly_chart(fig, use_container_width=True)
 
-        # HEADING 2
         c = '<p style="font-family:sans serif; color:#00A699; font-size: 25px;"><em><b>Availability Analysis></b></em></p>'
         st.markdown(c, unsafe_allow_html=True)
 
