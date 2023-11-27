@@ -47,16 +47,16 @@ if selected == "Home":
 # OVERVIEW PAGE
 if selected == "Overview":
 
-    selected_tab = option_menu(None, ["Raw Data", "Insights"],
+    selected_tab = option_menu(None, ["Airbnb Data", "Insights"],
                                default_index=0,
                                orientation="horizontal",
                                styles={"nav-link": {"font-size": "20px", "text-align": "left", "margin": "-2px","--hover-color": "#00A699"},
                                        "nav-link-selected": {"background-color": "#FF5A5F"}})
 
 
-    if selected_tab == "Raw Data":
+    if selected_tab == "Airbnb Data":
     
-        if st.button("Click to view raw Data"):
+        if st.button("Click to view Airbnb Data"):
             st.write(df)
 
     if selected_tab == "Insights":
